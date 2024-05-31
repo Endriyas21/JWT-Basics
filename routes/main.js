@@ -1,12 +1,9 @@
-const login = async (req, res) => {
-  res.send("login/signup route");
-};
+const express = require("express");
+const { dashboard, login } = require("../routes/main");
+const authorizationMiddleware = require("../middleware/auth");
+const router = express.Router();
 
-const dashboard = async (req, res) => {
-  const luckyNum = Math.floor(Math.random() * 100);
-  res
-    .status(200)
-    .json({ msg: `hello`, secret: `Here is your token ${luckyNum}` });
-};
+router.route("").get(authorizationMiddleware, dashboard);
+router.route("/").post(login);
 
-module.exports = { login, dashboard };
+module.exports = router;

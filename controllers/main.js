@@ -1,4 +1,4 @@
-const customAPIError = require("../errors/custom-error");
+const CustomAPIError = require("../errors/custom-error");
 const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -17,7 +17,10 @@ const dashboard = async (req, res) => {
   const luckyNum = Math.floor(Math.random() * 100);
   res
     .status(200)
-    .json({ msg: `hello`, secret: `Here is your token ${luckyNum}` });
+    .json({
+      msg: `hello ${req.user.username}`,
+      secret: `Here is your token ${luckyNum}`,
+    });
 };
 
 module.exports = { login, dashboard };
